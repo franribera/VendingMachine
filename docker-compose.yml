@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  vendingmachine.api:
+    image: vendingmachine-api
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile

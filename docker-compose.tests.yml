@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  vendingmachine.api:
+    image: vendingmachine-api-unittests
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile
+      target: testing
+    environment:
+      ConnectionStrings_VendingDatabase: ""
+    entrypoint:
+      - dotnet
+      - test
+      - /sln/test/Api.UnitTests/Api.UnitTests.csproj
+      - -l
+      - trx;LogFileName=/TestResults/api-unittests.xml
+    volumes:
+      - TestResults:/TestResults
