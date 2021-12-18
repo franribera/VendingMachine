@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{441688DD-A019-4D35-A7E7-331875D53735}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{D9029DC4-3D45-49F4-B05A-C589E60D05C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E69C6851-73C1-4AC5-B711-B8706446BE13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.UnitTests", "test\Api.UnitTests\Api.UnitTests.csproj", "{9B4D84EB-46E6-4DF8-B422-7243B35C1965}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9029DC4-3D45-49F4-B05A-C589E60D05C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9029DC4-3D45-49F4-B05A-C589E60D05C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9029DC4-3D45-49F4-B05A-C589E60D05C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9029DC4-3D45-49F4-B05A-C589E60D05C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B4D84EB-46E6-4DF8-B422-7243B35C1965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B4D84EB-46E6-4DF8-B422-7243B35C1965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B4D84EB-46E6-4DF8-B422-7243B35C1965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B4D84EB-46E6-4DF8-B422-7243B35C1965}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D9029DC4-3D45-49F4-B05A-C589E60D05C3} = {441688DD-A019-4D35-A7E7-331875D53735}
+		{9B4D84EB-46E6-4DF8-B422-7243B35C1965} = {E69C6851-73C1-4AC5-B711-B8706446BE13}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {534A78C3-6DA2-4072-B787-2139EB7FE5E0}
+	EndGlobalSection
+EndGlobal
