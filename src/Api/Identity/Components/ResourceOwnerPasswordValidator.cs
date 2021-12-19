@@ -20,7 +20,7 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
                 context.UserName,
                 OidcConstants.AuthenticationMethods.Password,
                 DateTime.UtcNow,
-                TestUsers.Users.First().Claims);
+                user.Claims);
         }
 
         return Task.CompletedTask;

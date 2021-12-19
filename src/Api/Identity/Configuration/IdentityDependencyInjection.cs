@@ -7,17 +7,15 @@ public static class IdentityDependencyInjection
 {
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
     {
-        //services.AddIdentityServer()
-        //    .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
-        //    .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
-        //    .AddInMemoryClients(IdentityConfig.Clients)
-        //    .AddTestUsers(TestUsers.Users);
-
-        services.AddIdentityServer()
+        services
+            .AddLocalApiAuthentication()
+            .AddIdentityServer()
+            .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
             .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
-            .AddInMemoryClients(IdentityConfig.Clients);
+            .AddInMemoryClients(IdentityConfig.Clients)
+            .AddTestUsers(TestUsers.Users);
 
-        services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+        //services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
 
         return services;
     }
