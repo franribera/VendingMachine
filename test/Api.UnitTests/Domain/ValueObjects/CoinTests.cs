@@ -13,7 +13,7 @@ public class CoinTests
         var coin1 = Coin.TwentyCent;
         var coin2 = Coin.TwentyCent;
 
-        // Act - Assert
+        // Assert
         coin1.Should().Be(coin2);
     }
 
@@ -24,7 +24,7 @@ public class CoinTests
         var coin1 = Coin.TwentyCent;
         var coin2 = Coin.HundredCent;
 
-        // Act - Assert
+        // Assert
         coin1.Should().NotBe(coin2);
     }
 

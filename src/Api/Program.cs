@@ -1,4 +1,7 @@
+using Api.Configuration;
 using Api.Identity.Configuration;
+using Api.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddIdentity(builder.Configuration);
+builder.Services.AddFeatures();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -33,3 +38,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+using var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetService<VendingMachineDbContext>();
+context?.Database.Migrate();
