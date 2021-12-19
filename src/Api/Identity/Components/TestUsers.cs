@@ -4,7 +4,7 @@ using Duende.IdentityServer;
 using Duende.IdentityServer.Test;
 using IdentityModel;
 
-namespace Api.Identity;
+namespace Api.Identity.Components;
 
 public class TestUsers
 {

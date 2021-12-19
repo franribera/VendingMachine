@@ -1,9 +1,8 @@
-﻿using System.Security.Claims;
-using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Validation;
 using IdentityModel;
 
-namespace Api.Identity;
+namespace Api.Identity.Components;
 
 public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 {
