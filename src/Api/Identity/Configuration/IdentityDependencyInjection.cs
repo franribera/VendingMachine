@@ -1,4 +1,5 @@
 ﻿using Api.Identity.Components;
+using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
 
 namespace Api.Identity.Configuration;
@@ -13,6 +14,7 @@ public static class IdentityDependencyInjection
             .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
             .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
             .AddInMemoryClients(IdentityConfig.Clients)
+            .AddProfileService<DefaultProfileService>()
             .AddTestUsers(TestUsers.Users);
 
         //services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();

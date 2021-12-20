@@ -17,7 +17,7 @@ public class DeleteUserController : Controller
         _mediator = mediator;
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:long}")]
     public async Task<ActionResult<CreateUserResponse>> Delete([FromRoute] long id, CancellationToken cancellationToken)
     {
         var request = new DeleteUserRequest { UserId = id };

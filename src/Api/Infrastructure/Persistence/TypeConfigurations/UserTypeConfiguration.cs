@@ -1,4 +1,5 @@
 ﻿using Api.Domain.Entities;
+using Api.Domain.Enumerations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,5 +21,16 @@ public class UserTypeConfiguration : IEntityTypeConfiguration<User>
         {
             password.Property(un => un.Value).HasColumnName("Password");
         });
+
+        builder
+            .Property<int>("_roleId")
+            .UsePropertyAccessMode(PropertyAccessMode.Field)
+            .HasColumnName("RoleId")
+            .IsRequired();
+
+        builder
+            .HasOne<Role>()
+            .WithMany()
+            .HasForeignKey("_roleId");
     }
 }

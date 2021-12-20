@@ -27,11 +27,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Enumerations\" />
     <Folder Include="Features\Users\Create\" />
     <Folder Include="Configuration\" />
     <Folder Include="Features\Users\Delete\" />

@@ -8,6 +8,7 @@ public class CreateUserRequest : IRequest<CreateUserResponse>
 {
     public string Username { get; set; }
     public string Password { get; set; }
+    public string Role { get; set; }
 }
 
 public class CreateUserResponse
@@ -27,7 +28,7 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
 
     public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var user = new User(request.Username, request.Password);
+        var user = new User(request.Username, request.Password, request.Role);
 
         await _dbContext.Users.AddAsync(user, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
