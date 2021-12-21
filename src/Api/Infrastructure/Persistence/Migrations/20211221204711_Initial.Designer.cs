@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(VendingMachineDbContext))]
-    [Migration("20211220001713_Roles")]
-    partial class Roles
+    [Migration("20211221204711_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace Api.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -75,7 +75,6 @@ namespace Api.Infrastructure.Persistence.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Value")
-                                .IsRequired()
                                 .HasColumnType("TEXT")
                                 .HasColumnName("Password");
 

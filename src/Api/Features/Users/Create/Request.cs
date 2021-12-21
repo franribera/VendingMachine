@@ -1,6 +1,7 @@
 ﻿using Api.Domain.Entities;
 using Api.Infrastructure.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Features.Users.Create;
 
@@ -13,8 +14,16 @@ public class CreateUserRequest : IRequest<CreateUserResponse>
 
 public class CreateUserResponse
 {
-    public long Id { get; set; }
-    public string Username { get; set; }
+    public long Id { get; }
+    public string Username { get; }
+    public string Role { get; }
+
+    public CreateUserResponse(long id, string username, string role)
+    {
+        Id = id;
+        Username = username;
+        Role = role;
+    }
 }
 
 public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, CreateUserResponse>
@@ -28,15 +37,18 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
 
     public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var user = new User(request.Username, request.Password, request.Role);
+        var existingUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Value == request.Username, cancellationToken);
 
-        await _dbContext.Users.AddAsync(user, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return new CreateUserResponse
+        if (existingUser == null)
         {
-            Id = user.Id,
-            Username = user.Username.Value
-        };
+            var user = new User(request.Username, request.Password, request.Role);
+
+            await _dbContext.Users.AddAsync(user, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return new CreateUserResponse (user.Id, user.Username.Value, user.Role.Name);
+        }
+
+        throw new InvalidOperationException($"User {request.Username} already exists.");
     }
 }

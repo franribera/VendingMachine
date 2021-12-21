@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Api.Domain.Entities;
+using Api.Domain.Enumerations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Infrastructure.Persistence;
@@ -10,9 +11,9 @@ public class VendingMachineDbContext : DbContext
     // dotnet ef database update -p src/Api -s src/Api
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
-    public VendingMachineDbContext(DbContextOptions<VendingMachineDbContext> options)
-        : base(options)
+    public VendingMachineDbContext(DbContextOptions<VendingMachineDbContext> options) : base(options)
     {
     }
 

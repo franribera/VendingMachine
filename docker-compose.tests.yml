@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  vendingmachine.api:
+  vendingmachine-api-unittests:
     image: vendingmachine-api-unittests
     build:
       context: .
@@ -16,4 +16,4 @@ services:
       - -l
       - trx;LogFileName=/TestResults/api-unittests.xml
     volumes:
-      - TestResults:/TestResults
+      - /TestResults://TestResults

@@ -44,7 +44,7 @@ namespace Api.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -73,7 +73,6 @@ namespace Api.Infrastructure.Persistence.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("Value")
-                                .IsRequired()
                                 .HasColumnType("TEXT")
                                 .HasColumnName("Password");
 
