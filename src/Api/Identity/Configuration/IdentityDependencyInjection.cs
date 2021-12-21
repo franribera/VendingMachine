@@ -14,10 +14,9 @@ public static class IdentityDependencyInjection
             .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
             .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
             .AddInMemoryClients(IdentityConfig.Clients)
-            .AddProfileService<DefaultProfileService>()
-            .AddTestUsers(TestUsers.Users);
+            .AddProfileService<ProfileService>();
 
-        //services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+        services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
 
         return services;
     }

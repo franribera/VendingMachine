@@ -30,12 +30,6 @@ namespace Api.Identity.Configuration
                     IdentityServerConstants.StandardScopes.Profile,
                     IdentityServerConstants.LocalApi.ScopeName
                 }
-                //AllowedScopes = new List<string>
-                //{
-                //    IdentityServerConstants.StandardScopes.OpenId,
-                //    IdentityServerConstants.StandardScopes.Profile,
-                //    "vending"
-                //}
             },
             new()
             {
@@ -49,12 +43,6 @@ namespace Api.Identity.Configuration
                     IdentityServerConstants.StandardScopes.Profile,
                     IdentityServerConstants.LocalApi.ScopeName
                 }
-                //AllowedScopes = new List<string>
-                //{
-                //    IdentityServerConstants.StandardScopes.OpenId,
-                //    IdentityServerConstants.StandardScopes.Profile,
-                //    "vending"
-                //}
             }
         };
     }

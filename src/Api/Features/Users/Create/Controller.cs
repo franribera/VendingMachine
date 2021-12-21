@@ -6,7 +6,8 @@ namespace Api.Features.Users.Create;
 
 [AllowAnonymous]
 [Route("users")]
-public class CreateUserController : Controller
+[ApiController]
+public class CreateUserController : ControllerBase
 {
     private readonly IMediator _mediator;
 

@@ -1,14 +1,25 @@
-﻿using Duende.IdentityServer.Models;
+﻿using System.Security.Claims;
+using Api.Domain.ValueObjects;
+using Api.Infrastructure.Persistence;
+using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Validation;
 using IdentityModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Identity.Components;
 
 public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 {
-    public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
+    private readonly VendingMachineDbContext _dbContext;
+
+    public ResourceOwnerPasswordValidator(VendingMachineDbContext dbContext)
     {
-        var user = TestUsers.Users.SingleOrDefault(u => u.Username == context.UserName);
+        _dbContext = dbContext;
+    }
+
+    public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
+    {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Value == context.UserName);
 
         if (user == null)
         {
@@ -16,13 +27,20 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
         }
         else
         {
-            context.Result = new GrantValidationResult(
-                context.UserName,
-                OidcConstants.AuthenticationMethods.Password,
-                DateTime.UtcNow,
-                user.Claims);
-        }
+            var password = new Password(context.Password);
 
-        return Task.CompletedTask;
+            if (Equals(user.Password, password))
+            {
+                context.Result = new GrantValidationResult(
+                    context.UserName,
+                    OidcConstants.AuthenticationMethods.Password,
+                    DateTime.UtcNow,
+                    new List<Claim> { new(JwtClaimTypes.Role, user.Role.Name) });
+            }
+            else
+            {
+                context.Result = new GrantValidationResult(TokenRequestErrors.UnauthorizedClient);
+            }
+        }
     }
 }
