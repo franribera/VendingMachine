@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Xunit.Sdk;
 
-namespace Api.UnitTests.Fixtures;
+namespace Api.IntegrationTests.Fixtures;
 
 public class ResetDatabaseAttribute : BeforeAfterTestAttribute
 {

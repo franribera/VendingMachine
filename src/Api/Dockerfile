@@ -9,6 +9,7 @@ COPY ["VendingMachine.sln", "VendingMachine.sln"]
 COPY ["docker-compose.dcproj", "docker-compose.dcproj"]
 COPY ["src/Api/Api.csproj", "src/Api/"]
 COPY ["test/Api.UnitTests/Api.UnitTests.csproj", "test/Api.UnitTests/"]
+COPY ["test/Api.IntegrationTests/Api.IntegrationTests.csproj", "test/Api.IntegrationTests/"]
 
 RUN dotnet restore "/sln/VendingMachine.sln"
 COPY . .

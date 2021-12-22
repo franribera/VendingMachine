@@ -1,7 +1,7 @@
 ﻿using Api.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.UnitTests.Fixtures;
+namespace Api.IntegrationTests.Fixtures;
 
 public static class VendingMachineDbContextFactory
 {

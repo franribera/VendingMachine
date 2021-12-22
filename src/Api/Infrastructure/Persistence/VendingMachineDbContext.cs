@@ -10,6 +10,8 @@ public class VendingMachineDbContext : DbContext
     // dotnet ef migrations add Initial -p src/Api -s src/Api -o Infrastructure/Persistence/Migrations
     // dotnet ef database update -p src/Api -s src/Api
 
+    public const string MigrationsTableName = "__EFMigrationsHistory";
+
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
 

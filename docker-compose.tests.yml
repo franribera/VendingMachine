@@ -8,7 +8,7 @@ services:
       dockerfile: src/Api/Dockerfile
       target: testing
     environment:
-      ConnectionStrings_VendingDatabase: ""
+      ConnectionStrings__VendingDatabase: "Server=vending-database;Initial Catalog=VendingMachine;User Id=SA;Password=ChangeIt123"
     entrypoint:
       - dotnet
       - test
@@ -17,3 +17,33 @@ services:
       - trx;LogFileName=/TestResults/api-unittests.xml
     volumes:
       - /TestResults://TestResults
+
+  vendingmachine-api-integrationtests:
+    image: vendingmachine-api-integrationtests
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile
+      target: testing
+    environment:
+      ConnectionStrings__VendingDatabase: "Server=vending-database;Initial Catalog=VendingMachine;User Id=SA;Password=ChangeIt123"
+    entrypoint:
+      - dotnet
+      - test
+      - /sln/test/Api.IntegrationTests/Api.IntegrationTests.csproj
+      - -l
+      - trx;LogFileName=/TestResults/api-integrationtests.xml
+    volumes:
+      - /TestResults://TestResults
+
+  vending-database:
+    image: mcr.microsoft.com/mssql/server
+    ports:
+     - 1434:1433
+    environment:
+     SA_PASSWORD: "ChangeIt123"
+     ACCEPT_EULA: "Y"
+    volumes:
+     - sqldata:/var/opt/mssql
+
+volumes:
+  sqldata:
