@@ -1,7 +1,4 @@
-﻿using Api.Domain.Entities;
-using Api.Domain.Enumerations;
-using Api.Features.Users.Create;
-using Api.IntegrationTests.Fixtures;
+﻿using Api.IntegrationTests.Fixtures;
 using FluentAssertions;
 using System.Net;
 using System.Net.Http;
@@ -25,7 +22,7 @@ public class DeleteUserTests
     public async Task User_cannot_be_deleted_without_authentication()
     {
         // Act
-        var response = await _httpClient.DeleteAsync("/users/1", CancellationToken.None);
+        var response = await _httpClient.DeleteAsync("/users", CancellationToken.None);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -38,30 +35,9 @@ public class DeleteUserTests
         var defaultUser = await _httpClient.AuthenticateDefaultUser();
 
         // Act
-        var response = await _httpClient.DeleteAsync($"/users/{defaultUser.Id}", CancellationToken.None);
+        var response = await _httpClient.DeleteAsync("/users", CancellationToken.None);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
-    public async Task Delete_other_user_is_forbidden()
-    {
-        // Arrange
-        var otherUser = new User("RandomName", "RandomPassword", Role.Seller.Name);
-
-        await using (var writeContext = VendingMachineDbContextFactory.Create())
-        {
-            await writeContext.Users.AddAsync(otherUser);
-            await writeContext.SaveChangesAsync();
-        }
-
-        await _httpClient.AuthenticateDefaultUser();
-
-        // Act
-        var response = await _httpClient.DeleteAsync($"/users/{otherUser.Id}", CancellationToken.None);
-
-        // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 }

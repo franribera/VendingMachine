@@ -1,5 +1,7 @@
 using Api.Configuration;
 using Api.Identity.Configuration;
+using Api.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +18,11 @@ app.UseHttpsRedirection();
 app.UseIdentityServer();
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
 
-//using var scope = app.Services.CreateScope();
-//var context = scope.ServiceProvider.GetService<VendingMachineDbContext>();
-//context?.Database.Migrate();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetService<VendingMachineDbContext>();
+    context?.Database.Migrate();
+}
+
+app.Run();
