@@ -4,7 +4,7 @@ namespace Api.Domain.ValueObjects;
 
 public class Password : ValueObject
 {
-    public string? Value { get; protected set; }
+    public string Value { get; protected set; }
 
     protected Password() { }
 

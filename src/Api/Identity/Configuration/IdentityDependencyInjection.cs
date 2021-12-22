@@ -1,5 +1,4 @@
 ﻿using Api.Identity.Components;
-using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
 
 namespace Api.Identity.Configuration;

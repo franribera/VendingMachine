@@ -26,6 +26,7 @@ services:
       target: testing
     environment:
       ConnectionStrings__VendingDatabase: "Server=vending-database;Initial Catalog=VendingMachine;User Id=SA;Password=ChangeIt123"
+      Api__BaseAddress: "http://vendingmachine-api"
     entrypoint:
       - dotnet
       - test
