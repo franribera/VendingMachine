@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mime;
+using FluentValidation;
 
 namespace Api.Infrastructure.MiddleWares;
 
@@ -37,6 +38,7 @@ public class ExceptionHandler
         {
             KeyNotFoundException => HttpStatusCode.NotFound,
             ArgumentException => HttpStatusCode.BadRequest,
+            ValidationException => HttpStatusCode.UnprocessableEntity,
             InvalidOperationException => HttpStatusCode.Conflict,
             _ => HttpStatusCode.InternalServerError
         };

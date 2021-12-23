@@ -1,5 +1,6 @@
 ﻿using Api.Domain.Enumerations;
 using Api.Domain.ValueObjects;
+using Duende.IdentityServer.Models;
 
 namespace Api.Domain.Entities;
 
@@ -7,7 +8,7 @@ public class User : Entity
 {
     private int _roleId;
 
-    public Username Username { get; protected set; }
+    public string Username { get; protected set; }
     public Password Password { get; protected set; }
     public Role Role => Enumeration.FromId<Role>(_roleId);
 
@@ -15,20 +16,18 @@ public class User : Entity
 
     public User(string username, string password, string role) : this()
     {
-        Username = new Username(username);
-        Password = new Password(password);
-        _roleId = Enumeration.FromName<Role>(role).Id;
+        SetValues(username, password, role);
     }
 
     public void Update(string username, string password, string role)
     {
-        if(!string.IsNullOrWhiteSpace(username))
-            Username = new Username(username);
+        SetValues(username, password, role);
+    }
 
-        if (!string.IsNullOrWhiteSpace(password))
-            Password = new Password(password);
-
-        if (!string.IsNullOrWhiteSpace(role))
-            _roleId = Enumeration.FromName<Role>(role).Id;
+    private void SetValues(string username, string password, string role)
+    {
+        Username = username;
+        Password = new Password(password);
+        _roleId = Enumeration.FromName<Role>(role).Id;
     }
 }

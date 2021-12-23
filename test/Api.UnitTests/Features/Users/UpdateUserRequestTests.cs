@@ -43,9 +43,9 @@ public class UpdateUserRequestTests
         await using var readContext = VendingMachineDbContextFactory.Create();
         var storedUser = await readContext.Users.SingleOrDefaultAsync();
         storedUser.Should().NotBeNull();
-        storedUser.Id.Should().Be(user.Id);
-        storedUser.Username.Should().Be(new Username("NewName"));
-        storedUser.Role.Should().Be(user.Role);
+        storedUser?.Id.Should().Be(user.Id);
+        storedUser?.Username.Should().Be("NewName");
+        storedUser?.Role.Should().Be(user.Role);
     }
 
     [Fact]
@@ -69,10 +69,10 @@ public class UpdateUserRequestTests
         await using var readContext = VendingMachineDbContextFactory.Create();
         var storedUser = await readContext.Users.SingleOrDefaultAsync();
         storedUser.Should().NotBeNull();
-        storedUser.Id.Should().Be(user.Id);
-        storedUser.Username.Should().Be(user.Username);
-        storedUser.Password.Should().Be(new Password("NewPassword"));
-        storedUser.Role.Should().Be(user.Role);
+        storedUser?.Id.Should().Be(user.Id);
+        storedUser?.Username.Should().Be(user.Username);
+        storedUser?.Password.Should().Be(new Password("NewPassword"));
+        storedUser?.Role.Should().Be(user.Role);
     }
 
     [Fact]
@@ -90,16 +90,16 @@ public class UpdateUserRequestTests
         var request = new UpdateUserRequest { UserId = user.Id, Role = Role.Buyer.Name };
 
         // Act
-        var response = await _handler.Handle(request, CancellationToken.None);
+        await _handler.Handle(request, CancellationToken.None);
 
         // Assert
         await using var readContext = VendingMachineDbContextFactory.Create();
         var storedUser = await readContext.Users.SingleOrDefaultAsync();
         storedUser.Should().NotBeNull();
-        storedUser.Id.Should().Be(user.Id);
-        storedUser.Username.Should().Be(user.Username);
-        storedUser.Password.Should().Be(user.Password);
-        storedUser.Role.Should().Be(Role.Buyer);
+        storedUser?.Id.Should().Be(user.Id);
+        storedUser?.Username.Should().Be(user.Username);
+        storedUser?.Password.Should().Be(user.Password);
+        storedUser?.Role.Should().Be(Role.Buyer);
     }
 
     [Fact]
@@ -123,16 +123,16 @@ public class UpdateUserRequestTests
         };
 
         // Act
-        var response = await _handler.Handle(request, CancellationToken.None);
+        await _handler.Handle(request, CancellationToken.None);
 
         // Assert
         await using var readContext = VendingMachineDbContextFactory.Create();
         var storedUser = await readContext.Users.SingleOrDefaultAsync();
         storedUser.Should().NotBeNull();
-        storedUser.Id.Should().Be(user.Id);
-        storedUser.Username.Should().Be(new Username(request.Username));
-        storedUser.Password.Should().Be(new Password(request.Password));
-        storedUser.Role.Should().Be(Role.Buyer);
+        storedUser?.Id.Should().Be(user.Id);
+        storedUser?.Username.Should().Be(request.Username);
+        storedUser?.Password.Should().Be(new Password(request.Password));
+        storedUser?.Role.Should().Be(Role.Buyer);
     }
 
     [Fact]
@@ -149,7 +149,7 @@ public class UpdateUserRequestTests
             await writeContext.SaveChangesAsync();
         }
 
-        var request = new UpdateUserRequest { UserId = user1.Id, Username = user2.Username.Value };
+        var request = new UpdateUserRequest { UserId = user1.Id, Username = user2.Username };
 
         Func<Task<UpdateUserResponse>> updateAction = async () => await _handler.Handle(request, CancellationToken.None);
 

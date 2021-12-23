@@ -35,11 +35,11 @@ public static class Authentication
         const string username = "Admin";
         const string password = "Admin123";
 
-        User user;
+        User? user;
         
         await using (var writeContext = VendingMachineDbContextFactory.Create())
         {
-            user = await writeContext.Users.SingleOrDefaultAsync(u => u.Username.Value == username, cancellationToken);
+            user = await writeContext.Users.SingleOrDefaultAsync(u => u.Username == username, cancellationToken);
 
             if (user == null)
             {

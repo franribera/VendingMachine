@@ -39,9 +39,9 @@ public class CreateUserRequestTests
         await using var readContext = VendingMachineDbContextFactory.Create();
         var user = await readContext.Users.SingleOrDefaultAsync();
         user.Should().NotBeNull();
-        user.Id.Should().Be(response.Id);
-        user.Username.Value.Should().Be(response.Username);
-        user.Role.Name.Should().Be(response.Role);
+        user?.Id.Should().Be(response.Id);
+        user?.Username.Should().Be(response.Username);
+        user?.Role.Name.Should().Be(response.Role);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class CreateUserRequestTests
         
         var request = new CreateUserRequest
         {
-            Username = user.Username.Value,
+            Username = user.Username,
             Password = "SuperStrongPassword",
             Role = Role.Buyer.Name
         };

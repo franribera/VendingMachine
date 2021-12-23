@@ -37,7 +37,7 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
 
     public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var existingUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Value == request.Username, cancellationToken);
+        var existingUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
 
         if (existingUser == null)
         {
@@ -46,7 +46,7 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
             await _dbContext.Users.AddAsync(user, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return new CreateUserResponse (user.Id, user.Username.Value, user.Role.Name);
+            return new CreateUserResponse (user.Id, user.Username, user.Role.Name);
         }
 
         throw new InvalidOperationException($"User {request.Username} already exists.");

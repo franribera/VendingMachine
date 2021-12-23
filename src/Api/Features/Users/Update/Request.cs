@@ -42,12 +42,12 @@ public class UpdateUserRequestHandler : IRequestHandler<UpdateUserRequest, Updat
 
         var user = await UpdateUser(request, cancellationToken);
 
-        return new UpdateUserResponse(user.Id, user.Username.Value, user.Role.Name);
+        return new UpdateUserResponse(user.Id, user.Username, user.Role.Name);
     }
 
     private async Task AssertUsernameNotInUse(UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        var userNameInUse = await _dbContext.Users.AnyAsync(u => u.Username.Value == request.Username && u.Id != request.UserId, cancellationToken);
+        var userNameInUse = await _dbContext.Users.AnyAsync(u => u.Username == request.Username && u.Id != request.UserId, cancellationToken);
 
         if (userNameInUse) throw new InvalidOperationException($"Username {request.Username} already in use.");
     }

@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer" Version="5.2.3" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
@@ -36,6 +38,7 @@
     <Folder Include="Configuration\" />
     <Folder Include="Features\Users\Delete\" />
     <Folder Include="Infrastructure\MiddleWares\" />
+    <Folder Include="Infrastructure\Behaviors\" />
     <Folder Include="Infrastructure\Persistence\Migrations\" />
     <Folder Include="Infrastructure\Persistence\TypeConfigurations\" />
   </ItemGroup>

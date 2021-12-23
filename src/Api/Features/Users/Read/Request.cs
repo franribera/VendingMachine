@@ -38,6 +38,6 @@ public class ReadUserRequestHandler : IRequestHandler<ReadUserRequest, ReadUserR
 
         if (user == null) throw new KeyNotFoundException($"User {request.UserId} does not exists.");
 
-        return new ReadUserResponse(user.Id, user.Username.Value, user.Role.Name);
+        return new ReadUserResponse(user.Id, user.Username, user.Role.Name);
     }
 }

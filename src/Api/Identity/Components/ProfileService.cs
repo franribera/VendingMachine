@@ -20,7 +20,7 @@ public class ProfileService : IProfileService
     {
         var username = context.Subject.FindFirstValue(JwtClaimTypes.Subject);
 
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Value == username);
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == username);
 
         if (user != null)
         {

@@ -1,5 +1,8 @@
-﻿using Api.Infrastructure.Persistence;
+﻿using Api.Infrastructure.Behaviors;
+using Api.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Api.Configuration;
 
@@ -12,5 +15,14 @@ public static class InfrastructureDependencyInjection
             {
                 o.MigrationsAssembly(typeof(VendingMachineDbContext).Assembly.FullName);
             }));
+    }
+
+    public static IServiceCollection AddMediatr(this IServiceCollection services)
+    {
+        services.AddMediatR(Assembly.GetExecutingAssembly());
+
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidation<,>));
+
+        return services;
     }
 }

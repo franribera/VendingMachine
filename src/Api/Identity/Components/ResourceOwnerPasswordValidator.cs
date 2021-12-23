@@ -19,7 +19,7 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 
     public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
     {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username.Value == context.UserName);
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == context.UserName);
 
         if (user == null)
         {

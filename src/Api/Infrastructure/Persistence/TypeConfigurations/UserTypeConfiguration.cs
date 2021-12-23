@@ -12,12 +12,6 @@ public class UserTypeConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(u => u.Id);
         builder.Property(u => u.Id).ValueGeneratedOnAdd();
 
-        builder.OwnsOne(u => u.Username, username =>
-        {
-            username.Property(un => un.Value).HasColumnName("Username");
-            username.HasIndex(un => un.Value).IsUnique();
-        });
-
         builder.OwnsOne(u => u.Password, password =>
         {
             password.Property(un => un.Value).HasColumnName("Password");

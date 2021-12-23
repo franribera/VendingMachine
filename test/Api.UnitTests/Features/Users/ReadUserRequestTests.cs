@@ -41,7 +41,7 @@ public class ReadUserRequestTests
         // Assert
         response.Should().NotBeNull();
         response.Id.Should().Be(user.Id);
-        response.Username.Should().Be(user.Username.Value);
+        response.Username.Should().Be(user.Username);
         response.Role.Should().Be(user.Role.Name);
     }
 

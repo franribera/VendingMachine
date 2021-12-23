@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddIdentity(builder.Configuration);
-builder.Services.AddFeatures();
+builder.Services.AddValidators();
+builder.Services.AddMediatr();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();

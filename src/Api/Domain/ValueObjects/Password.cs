@@ -10,9 +10,6 @@ public class Password : ValueObject
 
     public Password(string value) : this()
     {
-        if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Password cannot be empty.", nameof(Password));
-        if (value.Length < 6) throw new ArgumentException("Password must have 6 characters at least.", nameof(Password));
-
         Value = value.Sha256();
     }
 

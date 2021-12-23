@@ -1,13 +1,13 @@
-﻿using System.Reflection;
-using MediatR;
+﻿using FluentValidation;
+using System.Reflection;
 
 namespace Api.Configuration;
 
 public static class FeaturesDependencyInjection
 {
-    public static IServiceCollection AddFeatures(this IServiceCollection services)
+    public static IServiceCollection AddValidators(this IServiceCollection services)
     {
-        services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }
