@@ -7,27 +7,14 @@ namespace Api.UnitTests.Domain.ValueObjects;
 
 public class PasswordTests
 {
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData(" ")]
-    public void Cannot_be_empty(string value)
-    {
-        // Arrange
-        Action constructor = () => new Password(value);
-
-        // Act - Assert
-        constructor.Should().Throw<ArgumentException>();
-    }
-
     [Fact]
-    public void Cannot_have_less_than_6_characters()
+    public void Performs_hash()
     {
-        // Arrange
-        Action constructor = () => new Password("12345");
+        // Act
+        var password = new Password("123456");
 
-        // Act - Assert
-        constructor.Should().Throw<ArgumentException>();
+        // Assert
+        password.Value.Should().Be("jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=");
     }
 
     [Fact]
