@@ -1,17 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
-using Api.Features.Users.Create;
-using Duende.IdentityServer;
+﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Services;
 using IdentityModel;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Api.Features.Users.Delete;
 
-[Route("users")]
+[Route("user")]
 [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
 [ApiController]
 public class DeleteUserController : ControllerBase
@@ -25,7 +22,7 @@ public class DeleteUserController : ControllerBase
         _persistedGrantService = persistedGrantService;
     }
 
-    [HttpDelete()]
+    [HttpDelete]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken)
     {
         var userId = User.FindFirstValue(JwtClaimTypes.Id);
@@ -35,9 +32,6 @@ public class DeleteUserController : ControllerBase
         var request = new DeleteUserRequest { UserId = Convert.ToInt64(userId) };
 
         await _mediator.Send(request, cancellationToken);
-
-        //await HttpContext.SignOutAsync();
-        //await HttpContext.SignOutAsync(IdentityServerConstants.LocalApi.AuthenticationScheme);
 
         await _persistedGrantService.RemoveAllGrantsAsync(sub, client);
 

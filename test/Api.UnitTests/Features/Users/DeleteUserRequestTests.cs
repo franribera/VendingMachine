@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Api.UnitTests.Features.Users.Delete;
+namespace Api.UnitTests.Features.Users;
 
 [Collection(nameof(TestFixture))]
 public class DeleteUserRequestTests

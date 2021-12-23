@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\ValueObjects\" />
-    <Folder Include="Features\Users\Delete\" />
   </ItemGroup>
 
   <ItemGroup>

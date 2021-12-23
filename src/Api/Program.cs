@@ -1,5 +1,6 @@
 using Api.Configuration;
 using Api.Identity.Configuration;
+using Api.Infrastructure.MiddleWares;
 using Api.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,7 @@ app.UseHttpsRedirection();
 app.UseIdentityServer();
 app.UseAuthorization();
 app.MapControllers();
+app.UseMiddleware<ExceptionHandler>();
 
 using (var scope = app.Services.CreateScope())
 {

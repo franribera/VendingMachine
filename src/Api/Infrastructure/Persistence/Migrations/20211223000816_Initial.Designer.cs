@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(VendingMachineDbContext))]
-    [Migration("20211221234027_Initial")]
+    [Migration("20211223000816_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,7 @@ namespace Api.Infrastructure.Persistence.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<string>("Value")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Password");
 
@@ -100,10 +101,13 @@ namespace Api.Infrastructure.Persistence.Migrations
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("nvarchar(450)")
                                 .HasColumnName("Username");
 
                             b1.HasKey("UserId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique();
 
                             b1.ToTable("Users");
 

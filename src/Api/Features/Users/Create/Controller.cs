@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Features.Users.Create;
 
 [AllowAnonymous]
-[Route("users")]
+[Route("user")]
 [ApiController]
 public class CreateUserController : ControllerBase
 {

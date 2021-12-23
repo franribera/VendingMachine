@@ -80,6 +80,7 @@ namespace Api.Infrastructure.Persistence.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<string>("Value")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Password");
 
@@ -98,10 +99,13 @@ namespace Api.Infrastructure.Persistence.Migrations
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("nvarchar(450)")
                                 .HasColumnName("Username");
 
                             b1.HasKey("UserId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique();
 
                             b1.ToTable("Users");
 

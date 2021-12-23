@@ -19,4 +19,16 @@ public class User : Entity
         Password = new Password(password);
         _roleId = Enumeration.FromName<Role>(role).Id;
     }
+
+    public void Update(string username, string password, string role)
+    {
+        if(!string.IsNullOrWhiteSpace(username))
+            Username = new Username(username);
+
+        if (!string.IsNullOrWhiteSpace(password))
+            Password = new Password(password);
+
+        if (!string.IsNullOrWhiteSpace(role))
+            _roleId = Enumeration.FromName<Role>(role).Id;
+    }
 }

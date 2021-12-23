@@ -1,15 +1,15 @@
-﻿using Api.Domain.Entities;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Api.Domain.Entities;
 using Api.Domain.Enumerations;
 using Api.Features.Users.Create;
 using Api.UnitTests.Fixtures;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Api.UnitTests.Features.Users.Create;
+namespace Api.UnitTests.Features.Users;
 
 [Collection(nameof(TestFixture)), ResetDatabase]
 public class CreateUserRequestTests
