@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Api.IntegrationTests.Features.Users;
@@ -22,7 +23,7 @@ public class DeleteUserTests
     public async Task User_cannot_be_deleted_without_authentication()
     {
         // Act
-        var response = await _httpClient.DeleteAsync("/users", CancellationToken.None);
+        var response = await _httpClient.DeleteAsync("/user", CancellationToken.None);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -35,9 +36,13 @@ public class DeleteUserTests
         var defaultUser = await _httpClient.AuthenticateDefaultUser();
 
         // Act
-        var response = await _httpClient.DeleteAsync("/users", CancellationToken.None);
+        var response = await _httpClient.DeleteAsync("/user", CancellationToken.None);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        await using var readContext = VendingMachineDbContextFactory.Create();
+        var user = await readContext.Users.SingleOrDefaultAsync();
+        user.Should().BeNull();
     }
 }
