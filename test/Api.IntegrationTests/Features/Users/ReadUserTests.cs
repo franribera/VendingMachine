@@ -42,7 +42,7 @@ public class ReadUserTests
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        var readUser = await response.Content.ReadFromJsonAsync<ReadUserResponse>();
+        var readUser = await response.Content.ReadFromJsonAsync<UserDto>();
         readUser.Id.Should().Be(defaultUser.Id);
         readUser.Username.Should().Be(defaultUser.Username);
         readUser.Role.Should().Be(defaultUser.Role.Name);
