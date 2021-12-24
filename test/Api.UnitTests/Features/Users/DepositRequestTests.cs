@@ -26,7 +26,7 @@ public class DepositRequestTests
     {
         // Arrange
         var user = new User("Username", "Password", Role.Buyer.Name);
-        user.DepositMoney(10);
+        user.DepositMoney(Coin.TenCent);
 
         await using (var writeContext = VendingMachineDbContextFactory.Create())
         {

@@ -1,4 +1,5 @@
-﻿using Api.Infrastructure.Persistence;
+﻿using Api.Domain.ValueObjects;
+using Api.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +36,9 @@ public class DepositRequestHandler : IRequestHandler<DepositRequest, DepositResp
     {
         var user = await _dbContext.Users.SingleAsync(u => u.Id == request.UserId, cancellationToken);
 
-        user.DepositMoney(request.Coin);
+        var coin = new Coin(request.Coin);
+
+        user.DepositMoney(coin);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 

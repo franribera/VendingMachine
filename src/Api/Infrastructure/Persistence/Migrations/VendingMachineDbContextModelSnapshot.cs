@@ -21,6 +21,51 @@ namespace Api.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Api.Domain.Entities.Product", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SellerId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SellerId")
+                        .IsUnique();
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.Stock", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("Stocks");
+                });
+
             modelBuilder.Entity("Api.Domain.Entities.User", b =>
                 {
                     b.Property<long>("Id")
@@ -68,6 +113,44 @@ namespace Api.Infrastructure.Persistence.Migrations
                             Id = 2,
                             Name = "Buyer"
                         });
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("Api.Domain.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("Api.Domain.Entities.Product", "SellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.Stock", b =>
+                {
+                    b.HasOne("Api.Domain.Entities.Product", null)
+                        .WithOne()
+                        .HasForeignKey("Api.Domain.Entities.Stock", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Api.Domain.ValueObjects.Money", "Price", b1 =>
+                        {
+                            b1.Property<long>("StockId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("Amount")
+                                .HasColumnType("int")
+                                .HasColumnName("Price");
+
+                            b1.HasKey("StockId");
+
+                            b1.ToTable("Stocks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("StockId");
+                        });
+
+                    b.Navigation("Price")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.User", b =>

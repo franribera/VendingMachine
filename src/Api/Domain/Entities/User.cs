@@ -27,11 +27,19 @@ public class User : Entity
         Password = new Password(password);
     }
 
-    public void DepositMoney(int coinValue)
+    public void DepositMoney(Coin coin)
     {
-        var coin = new Coin(coinValue);
-
         Deposit += coin;
+    }
+
+    public void Withdraw(Money money)
+    {
+        var remainingMoney = Deposit - money;
+
+        if (remainingMoney.Amount < 0)
+            throw new InvalidOperationException($"Not enough money. Deposit = {Deposit.Amount}");
+
+        Deposit -= money;
     }
 
     public IEnumerable<Coin> ResetDeposit()

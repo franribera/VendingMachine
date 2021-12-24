@@ -17,15 +17,20 @@ public class Money : ValueObject
     {
         return new Money(left.Amount + right.Amount);
     }
+    
+    public static Money operator -(Money left, Money right)
+    {
+        return new Money(left.Amount - right.Amount);
+    }
 
     public static Money operator +(Money money, Coin coin)
     {
         return new Money(money.Amount + coin.Value);
     }
 
-    public static Money operator -(Money left, Money right)
+    public static Money operator *(Money money, int multiplier)
     {
-        return new Money(left.Amount - right.Amount);
+        return new Money(money.Amount * multiplier);
     }
 
     public IEnumerable<Coin> Allocate()
