@@ -37,6 +37,7 @@
     <Folder Include="Features\Users\Create\" />
     <Folder Include="Configuration\" />
     <Folder Include="Features\Users\Delete\" />
+    <Folder Include="Features\Users\Deposit\" />
     <Folder Include="Infrastructure\MiddleWares\" />
     <Folder Include="Infrastructure\Behaviors\" />
     <Folder Include="Infrastructure\Persistence\Migrations\" />

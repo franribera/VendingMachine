@@ -35,9 +35,7 @@ public class UpdateUserRequestHandler : IRequestHandler<UpdateUserRequest, Updat
 
     public async Task<UpdateUserResponse> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
-
-        if (user == null) throw new KeyNotFoundException($"User {request.UserId} does not exists.");
+        var user = await _dbContext.Users.SingleAsync(u => u.Id == request.UserId, cancellationToken);
 
         user.UpdatePassword(request.Password);
 

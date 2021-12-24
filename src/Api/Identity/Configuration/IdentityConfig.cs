@@ -23,7 +23,6 @@ namespace Api.Identity.Configuration
                 ClientId = "postman",
                 ClientSecrets = {new Secret("secret".Sha256())},
                 RequirePkce = true,
-                AccessTokenType = AccessTokenType.Reference,
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 AllowedScopes =
                 {
@@ -37,7 +36,6 @@ namespace Api.Identity.Configuration
                 ClientId = "swagger",
                 ClientSecrets = {new Secret("secret".Sha256())},
                 RequirePkce = true,
-                AccessTokenType = AccessTokenType.Reference,
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 AllowedScopes =
                 {

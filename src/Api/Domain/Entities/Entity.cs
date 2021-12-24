@@ -41,7 +41,7 @@ public abstract class Entity
         return left?.Equals(right) ?? Equals(right, null);
     }
 
-    public static bool operator !=(Entity left, Entity right)
+    public static bool operator !=(Entity? left, Entity? right)
     {
         return !(left == right);
     }

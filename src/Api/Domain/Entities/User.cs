@@ -27,8 +27,19 @@ public class User : Entity
         Password = new Password(password);
     }
 
-    public void DepositCoin(Coin coin)
+    public void DepositMoney(int coinValue)
     {
+        var coin = new Coin(coinValue);
+
         Deposit += coin;
+    }
+
+    public IEnumerable<Coin> ResetDeposit()
+    {
+        var withdrawal = Deposit.Allocate();
+
+        Deposit = Money.None;
+
+        return withdrawal;
     }
 }

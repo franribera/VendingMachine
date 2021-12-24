@@ -1,6 +1,5 @@
 ﻿using Api.Domain.Entities;
 using Api.Domain.Enumerations;
-using Api.Domain.ValueObjects;
 using FluentAssertions;
 using Xunit;
 

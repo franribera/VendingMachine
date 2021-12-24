@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Api.Domain.Entities;
 using Api.Infrastructure.Persistence;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
@@ -18,9 +19,7 @@ public class ProfileService : IProfileService
 
     public async Task GetProfileDataAsync(ProfileDataRequestContext context)
     {
-        var username = context.Subject.FindFirstValue(JwtClaimTypes.Subject);
-
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == username);
+        var user = await GetUser(context.Subject);
 
         if (user != null)
         {
@@ -29,10 +28,17 @@ public class ProfileService : IProfileService
         }
     }
 
-    public Task IsActiveAsync(IsActiveContext context)
+    public async Task IsActiveAsync(IsActiveContext context)
     {
-        context.IsActive = true;
+        var user = await GetUser(context.Subject);
 
-        return Task.CompletedTask;
+        context.IsActive = user != null;
+    }
+
+    private async Task<User?> GetUser(ClaimsPrincipal subject)
+    {
+        var username = subject.FindFirstValue(JwtClaimTypes.Subject);
+
+        return await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == username);
     }
 }

@@ -20,12 +20,10 @@ public class DeleteUserRequestHandler : AsyncRequestHandler<DeleteUserRequest>
 
     protected override async Task Handle(DeleteUserRequest request, CancellationToken cancellationToken)
     {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
+        var user = await _dbContext.Users.SingleAsync(u => u.Id == request.UserId, cancellationToken);
 
-        if (user != null)
-        {
-            _dbContext.Users.Remove(user);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
+        _dbContext.Users.Remove(user);
+
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

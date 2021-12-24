@@ -1,5 +1,4 @@
-﻿using System;
-using Api.Domain.ValueObjects;
+﻿using Api.Domain.ValueObjects;
 using FluentAssertions;
 using Xunit;
 

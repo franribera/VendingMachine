@@ -34,9 +34,7 @@ public class ReadUserRequestHandler : IRequestHandler<ReadUserRequest, ReadUserR
 
     public async Task<ReadUserResponse> Handle(ReadUserRequest request, CancellationToken cancellationToken)
     {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
-
-        if (user == null) throw new KeyNotFoundException($"User {request.UserId} does not exists.");
+        var user = await _dbContext.Users.SingleAsync(u => u.Id == request.UserId, cancellationToken);
 
         return new ReadUserResponse(user.Id, user.Username, user.Role.Name);
     }

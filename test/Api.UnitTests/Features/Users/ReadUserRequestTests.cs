@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Enumerations;
@@ -43,17 +41,5 @@ public class ReadUserRequestTests
         response.Id.Should().Be(user.Id);
         response.Username.Should().Be(user.Username);
         response.Role.Should().Be(user.Role.Name);
-    }
-
-    [Fact]
-    public async Task Throws_if_user_does_not_exist()
-    {
-        // Arrange
-        var request = new ReadUserRequest { UserId = 1 };
-
-        Func<Task<ReadUserResponse>> readAction = async () => await _handler.Handle(request, CancellationToken.None);
-
-        // Act - Assert
-        await readAction.Should().ThrowAsync<KeyNotFoundException>();
     }
 }

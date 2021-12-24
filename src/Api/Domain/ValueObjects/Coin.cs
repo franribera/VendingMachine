@@ -13,7 +13,7 @@ public class Coin : ValueObject
 
     public int Value { get; }
 
-    private Coin(int value)
+    public Coin(int value)
     {
         Value = value;
     }
