@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(VendingMachineDbContext))]
-    [Migration("20211224060107_Initial")]
+    [Migration("20211224065155_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace Api.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<long>("SellerId")
                         .HasColumnType("bigint");
 
@@ -44,28 +47,6 @@ namespace Api.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Api.Domain.Entities.Stock", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("Stocks");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.User", b =>
@@ -124,31 +105,22 @@ namespace Api.Infrastructure.Persistence.Migrations
                         .HasForeignKey("Api.Domain.Entities.Product", "SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Api.Domain.Entities.Stock", b =>
-                {
-                    b.HasOne("Api.Domain.Entities.Product", null)
-                        .WithOne()
-                        .HasForeignKey("Api.Domain.Entities.Stock", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.OwnsOne("Api.Domain.ValueObjects.Money", "Price", b1 =>
                         {
-                            b1.Property<long>("StockId")
+                            b1.Property<long>("ProductId")
                                 .HasColumnType("bigint");
 
                             b1.Property<int>("Amount")
                                 .HasColumnType("int")
                                 .HasColumnName("Price");
 
-                            b1.HasKey("StockId");
+                            b1.HasKey("ProductId");
 
-                            b1.ToTable("Stocks");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
-                                .HasForeignKey("StockId");
+                                .HasForeignKey("ProductId");
                         });
 
                     b.Navigation("Price")

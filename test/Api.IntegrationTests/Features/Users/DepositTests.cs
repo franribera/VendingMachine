@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Api.Domain.ValueObjects;
 using Xunit;
 
 namespace Api.IntegrationTests.Features.Users;
@@ -44,7 +45,7 @@ public class DepositTests
         // Arrange
         var buyer = new User("Username", "Password", Role.Buyer.Name);
 
-        buyer.DepositMoney(5);
+        buyer.DepositMoney(Coin.FiftyCent);
 
         await using (var writeContext = VendingMachineDbContextFactory.Create())
         {
@@ -67,7 +68,7 @@ public class DepositTests
 
         var depositResponse = await response.Content.ReadFromJsonAsync<DepositResponse>();
         depositResponse.UserId.Should().Be(buyer.Id);
-        depositResponse.Deposit.Should().Be(105);
+        depositResponse.Deposit.Should().Be(150);
     }
 
     [Fact]

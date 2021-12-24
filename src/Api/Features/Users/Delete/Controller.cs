@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Api.Domain.Enumerations;
+using Api.Features.Users.Reset;
 
 namespace Api.Features.Users.Delete;
 
@@ -22,12 +24,24 @@ public class DeleteUserController : ControllerBase
     [HttpDelete]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken)
     {
-        var userId = User.FindFirstValue(JwtClaimTypes.Id);
+        var userId = Convert.ToInt64(User.FindFirstValue(JwtClaimTypes.Id));
+        var userRole = User.FindFirstValue(JwtClaimTypes.Role);
 
-        var request = new DeleteUserRequest { UserId = Convert.ToInt64(userId) };
+        var isBuyer = string.Equals(userRole, Role.Buyer.Name, StringComparison.InvariantCultureIgnoreCase);
 
-        await _mediator.Send(request, cancellationToken);
+        ResetResponse? response = null;
 
-        return Ok();
+        if (isBuyer)
+        {
+            var resetRequest = new ResetRequest { UserId = userId };
+
+            response = await _mediator.Send(resetRequest, cancellationToken);
+        }
+        
+        var deleteUserRequest = new DeleteUserRequest { UserId = userId };
+
+        await _mediator.Send(deleteUserRequest, cancellationToken);
+
+        return response == null ? Ok() : new JsonResult(response);
     }
 }

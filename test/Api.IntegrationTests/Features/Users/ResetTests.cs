@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Api.Domain.ValueObjects;
 using Xunit;
 
 namespace Api.IntegrationTests.Features.Users;
@@ -50,11 +51,11 @@ public class ResetTests
         // Arrange
         var buyer = new User("Username", "Password", Role.Buyer.Name);
 
-        buyer.DepositMoney(100);
-        buyer.DepositMoney(100);
-        buyer.DepositMoney(20);
-        buyer.DepositMoney(10);
-        buyer.DepositMoney(5);
+        buyer.DepositMoney(Coin.HundredCent);
+        buyer.DepositMoney(Coin.HundredCent);
+        buyer.DepositMoney(Coin.TwentyCent);
+        buyer.DepositMoney(Coin.TenCent);
+        buyer.DepositMoney(Coin.FiveCent);
 
         await using (var writeContext = VendingMachineDbContextFactory.Create())
         {

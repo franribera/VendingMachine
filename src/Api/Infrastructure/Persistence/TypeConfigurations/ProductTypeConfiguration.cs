@@ -11,11 +11,16 @@ public class ProductTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
+        builder.OwnsOne(p => p.Price, price =>
+        {
+            price.Property(p => p.Amount).HasColumnName("Price");
+        });
+
         builder
             .HasOne<User>()
             .WithOne()
-            .HasForeignKey<Product>(s => s.SellerId)
-            .HasPrincipalKey<User>(p => p.Id)
+            .HasForeignKey<Product>(p => p.SellerId)
+            .HasPrincipalKey<User>(u => u.Id)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

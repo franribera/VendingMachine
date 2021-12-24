@@ -15,7 +15,6 @@ public class VendingMachineDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Product> Products { get; set; }
-    public DbSet<Stock> Stocks { get; set; }
 
     public VendingMachineDbContext(DbContextOptions<VendingMachineDbContext> options) : base(options)
     {
