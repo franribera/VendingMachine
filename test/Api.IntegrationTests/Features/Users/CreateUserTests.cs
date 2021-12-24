@@ -5,7 +5,6 @@ using Api.Domain.Enumerations;
 using Api.Features.Users.Create;
 using Api.IntegrationTests.Fixtures;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Api.IntegrationTests.Features.Users;

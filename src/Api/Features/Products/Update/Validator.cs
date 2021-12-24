@@ -1,5 +1,4 @@
-﻿using Api.Features.Products.Create;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Api.Features.Products.Update;
 

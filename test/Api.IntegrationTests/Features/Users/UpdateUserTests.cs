@@ -3,11 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Api.Domain.ValueObjects;
 using Api.Features.Users.Update;
 using Api.IntegrationTests.Fixtures;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Api.IntegrationTests.Features.Users;

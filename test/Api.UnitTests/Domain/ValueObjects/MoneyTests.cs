@@ -11,8 +11,8 @@ public class MoneyTests
     public void Two_money_instances_equals_if_have_the_same_amount()
     {
         // Arrange
-        var money1 = new Money(123);
-        var money2 = new Money(123);
+        var money1 = new Money(105);
+        var money2 = new Money(105);
 
         // Act
         var result = money1.Equals(money2);
@@ -27,14 +27,14 @@ public class MoneyTests
     public void Sums_money_as_expected()
     {
         // Arrange
-        var money1 = new Money(111);
-        var money2 = new Money(222);
+        var money1 = new Money(100);
+        var money2 = new Money(200);
 
         // Act
         var result = money1 + money2;
 
         // Assert
-        result.Amount.Should().Be(333);
+        result.Amount.Should().Be(300);
     }
 
     [Fact]
@@ -54,14 +54,14 @@ public class MoneyTests
     public void Subtract_as_expected()
     {
         // Arrange
-        var money1 = new Money(333);
-        var money2 = new Money(222);
+        var money1 = new Money(300);
+        var money2 = new Money(200);
 
         // Act
         var result = money1 - money2;
 
         // Assert
-        result.Amount.Should().Be(111);
+        result.Amount.Should().Be(100);
     }
 
     [Theory]
