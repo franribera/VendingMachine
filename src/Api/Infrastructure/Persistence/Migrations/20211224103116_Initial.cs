@@ -83,8 +83,7 @@ namespace Api.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Products_SellerId",
                 table: "Products",
-                column: "SellerId",
-                unique: true);
+                column: "SellerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_Name",

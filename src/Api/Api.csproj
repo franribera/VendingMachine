@@ -35,7 +35,6 @@
     <Folder Include="Domain\Entities\" />
     <Folder Include="Domain\Enumerations\" />
     <Folder Include="Features\Products\Create\" />
-    <Folder Include="Features\Products\Purchase\" />
     <Folder Include="Features\Users\Create\" />
     <Folder Include="Configuration\" />
     <Folder Include="Features\Users\Delete\" />

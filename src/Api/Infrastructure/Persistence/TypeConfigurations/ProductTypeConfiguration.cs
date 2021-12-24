@@ -20,9 +20,9 @@ public class ProductTypeConfiguration : IEntityTypeConfiguration<Product>
 
         builder
             .HasOne<User>()
-            .WithOne()
-            .HasForeignKey<Product>(p => p.SellerId)
-            .HasPrincipalKey<User>(u => u.Id)
+            .WithMany()
+            .HasForeignKey(p => p.SellerId)
+            .HasPrincipalKey(u => u.Id)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

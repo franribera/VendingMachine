@@ -44,8 +44,7 @@ namespace Api.Infrastructure.Persistence.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.HasIndex("SellerId")
-                        .IsUnique();
+                    b.HasIndex("SellerId");
 
                     b.ToTable("Products");
                 });
@@ -108,8 +107,8 @@ namespace Api.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Api.Domain.Entities.Product", b =>
                 {
                     b.HasOne("Api.Domain.Entities.User", null)
-                        .WithOne()
-                        .HasForeignKey("Api.Domain.Entities.Product", "SellerId")
+                        .WithMany()
+                        .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
