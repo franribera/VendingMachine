@@ -10,6 +10,8 @@ public class Money : ValueObject
 
     public Money(int amount)
     {
+        if (amount % 5 != 0) throw new ArgumentException("Money amount must be multiple of 5.");
+
         Amount = amount;
     }
 

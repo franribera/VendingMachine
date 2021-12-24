@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="Domain\ValueObjects\" />
+    <Folder Include="Features\Products\Create\" />
   </ItemGroup>
 
   <ItemGroup>

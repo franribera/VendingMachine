@@ -11,6 +11,8 @@ public class RoleTypeConfiguration : IEntityTypeConfiguration<Role>
         builder.HasKey(r => r.Id);
         builder.Property(r => r.Id).ValueGeneratedNever().IsRequired();
 
+        builder.HasIndex(r => r.Name).IsUnique();
+
         builder.HasData(Enumeration.GetAll<Role>());
     }
 }

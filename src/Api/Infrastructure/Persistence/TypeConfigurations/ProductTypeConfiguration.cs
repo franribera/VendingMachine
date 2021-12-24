@@ -11,6 +11,8 @@ public class ProductTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
+        builder.HasIndex(p => p.Name).IsUnique();
+
         builder.OwnsOne(p => p.Price, price =>
         {
             price.Property(p => p.Amount).HasColumnName("Price");
