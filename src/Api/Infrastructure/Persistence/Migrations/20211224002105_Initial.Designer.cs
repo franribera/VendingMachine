@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(VendingMachineDbContext))]
-    [Migration("20211223184454_Initial")]
+    [Migration("20211224002105_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,23 @@ namespace Api.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("Api.Domain.ValueObjects.Money", "Deposit", b1 =>
+                        {
+                            b1.Property<long>("UserId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("Amount")
+                                .HasColumnType("int")
+                                .HasColumnName("Deposit");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
                     b.OwnsOne("Api.Domain.ValueObjects.Password", "Password", b1 =>
                         {
                             b1.Property<long>("UserId")
@@ -97,6 +114,9 @@ namespace Api.Infrastructure.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
+
+                    b.Navigation("Deposit")
+                        .IsRequired();
 
                     b.Navigation("Password")
                         .IsRequired();

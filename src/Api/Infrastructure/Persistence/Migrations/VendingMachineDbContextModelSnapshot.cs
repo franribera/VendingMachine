@@ -78,6 +78,23 @@ namespace Api.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("Api.Domain.ValueObjects.Money", "Deposit", b1 =>
+                        {
+                            b1.Property<long>("UserId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("Amount")
+                                .HasColumnType("int")
+                                .HasColumnName("Deposit");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
                     b.OwnsOne("Api.Domain.ValueObjects.Password", "Password", b1 =>
                         {
                             b1.Property<long>("UserId")
@@ -95,6 +112,9 @@ namespace Api.Infrastructure.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
+
+                    b.Navigation("Deposit")
+                        .IsRequired();
 
                     b.Navigation("Password")
                         .IsRequired();

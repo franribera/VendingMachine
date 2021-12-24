@@ -17,6 +17,11 @@ public class UserTypeConfiguration : IEntityTypeConfiguration<User>
             password.Property(un => un.Value).HasColumnName("Password");
         });
 
+        builder.OwnsOne(u => u.Deposit, deposit =>
+        {
+            deposit.Property(d => d.Amount).HasColumnName("Deposit");
+        });
+
         builder
             .Property<int>("_roleId")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
