@@ -29,7 +29,7 @@ public class EntityTests
     public void Not_equals_if_other_is_not_an_entity()
     {
         // Arrange
-        var username = new Username("RandomName");
+        var username = "RandomName";
         var entity = new TestEntity("Name", 123);
 
         // Act

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Api.Domain.Entities;
+﻿using Api.Domain.Entities;
 using Api.Domain.Enumerations;
 using Api.Domain.ValueObjects;
 using Api.Features.Users.Update;
 using Api.UnitTests.Fixtures;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Api.UnitTests.Features.Users;
@@ -23,7 +22,7 @@ public class UpdateUserRequestTests
     }
 
     [Fact]
-    public async Task Updates_the_whole_user()
+    public async Task Updates_password()
     {
         // Arrange
         var user = new User("Username", "Password", Role.Seller.Name);
@@ -37,9 +36,7 @@ public class UpdateUserRequestTests
         var request = new UpdateUserRequest
         {
             UserId = user.Id,
-            Username = "NewName",
             Password = "NewPassword",
-            Role = Role.Buyer.Name
         };
 
         // Act
@@ -50,30 +47,8 @@ public class UpdateUserRequestTests
         var storedUser = await readContext.Users.SingleOrDefaultAsync();
         storedUser.Should().NotBeNull();
         storedUser?.Id.Should().Be(user.Id);
-        storedUser?.Username.Should().Be(request.Username);
+        storedUser?.Username.Should().Be(user.Username);
         storedUser?.Password.Should().Be(new Password(request.Password));
-        storedUser?.Role.Should().Be(Role.Buyer);
-    }
-
-    [Fact]
-    public async Task Throws_when_username_already_exists()
-    {
-        // Arrange
-        var user1 = new User("Username1", "Password", Role.Seller.Name);
-        var user2 = new User("Username2", "Password", Role.Seller.Name);
-
-        await using (var writeContext = VendingMachineDbContextFactory.Create())
-        {
-            await writeContext.Users.AddAsync(user1);
-            await writeContext.Users.AddAsync(user2);
-            await writeContext.SaveChangesAsync();
-        }
-
-        var request = new UpdateUserRequest { UserId = user1.Id, Username = user2.Username };
-
-        Func<Task<UpdateUserResponse>> updateAction = async () => await _handler.Handle(request, CancellationToken.None);
-
-        // Act - Assert
-        await updateAction.Should().ThrowAsync<InvalidOperationException>();
+        storedUser?.Role.Should().Be(user.Role);
     }
 }
