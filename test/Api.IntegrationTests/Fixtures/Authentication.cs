@@ -14,7 +14,15 @@ public static class Authentication
 {
     public static async Task AuthenticateUser(this HttpClient client, string username, string password, CancellationToken cancellationToken = default)
     {
-        var discovery = await client.GetDiscoveryDocumentAsync(ConfigurationProvider.ApiBaseAddress, cancellationToken);
+        var discovery = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+        {
+            Address = ConfigurationProvider.ApiBaseAddress,
+            Policy = new DiscoveryPolicy
+            {
+                RequireHttps = false
+            }
+            
+        }, cancellationToken);
 
         var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
         {
